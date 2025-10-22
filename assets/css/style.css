@@ -195,14 +195,56 @@ form {
   box-shadow: none;
 }
 
-/* <-- dashboard section --> */
+/* dashboard container */
 .dashboard {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background: linear-gradient(90deg, #e2e2e2, #c9d6ff);
-  font-size: 24px;
-  font-weight: 600;
-  color: #333;
+  height: 100vh;
+  font-family: "Poppins", sans-serif;
+  background-color: #e4e9f7;
 }
+
+/* sidebar */
+.dashboard .sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 250px;
+  height: 100%;
+  background-color: #fff;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+}
+
+.sidebar .image-logo .image img {
+  width: 60px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.sidebar .menu {
+  list-style: none;
+  width: 100%;
+  padding: 0;
+}
+
+.sidebar .menu li {
+  padding: 15px 20px;
+  width: 100%;
+  cursor: pointer;
+  color: #707070;
+}
+
+.sidebar .menu li:hover {
+  background-color: #f6f5ff;
+  color: #695cfe;
+}
+
+/* main dashboard area */
+/* .dashboard-main {
+  margin-left: 250px;
+  padding: 40px;
+  flex: 1;
+} */
