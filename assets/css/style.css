@@ -63,7 +63,7 @@ form {
 }
 .input-box {
   position: relative;
-  margin: 30px 0;
+  margin: 30px 0 0;
 }
 .input-box input {
   width: 100%;
@@ -87,12 +87,19 @@ form {
   transform: translateY(-50%);
   font-size: 20px;
 }
-.forgot-link {
-  margin: -15px 0 15px;
+.check-box {
+  display: flex;
+  align-items: center;
+  margin: 15px 0;
 }
-.forgot-link a {
-  color: #333;
-  font-size: 14.5px;
+.check-box input {
+  margin-right: 10px;
+  width: 16px;
+  height: 16px;
+}
+.check-box a {
+  margin-left: 90px;
+  font-size: 14px;
 }
 .btn {
   width: 100%;
@@ -110,6 +117,7 @@ form {
 .social-icons {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 .social-icons a {
@@ -118,8 +126,17 @@ form {
   border: 2px solid #ccc;
   font-size: 24px;
   color: #333;
-  margin: 0 8px;
+  margin: 8px;
+  border-radius: 8px;
+  transition: all 0.3s;
 }
+
+.social-icons a:hover {
+  background: #aaa;
+  box-shadow: 0 0 10px #aaa;
+  transform: translateY(-4px) scale(1.1);
+}
+
 .toggle-box {
   position: absolute;
   width: 100%;
@@ -176,4 +193,16 @@ form {
   background: transparent;
   border: 2px solid #fff;
   box-shadow: none;
+}
+
+/* <-- dashboard section --> */
+.dashboard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(90deg, #e2e2e2, #c9d6ff);
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
 }

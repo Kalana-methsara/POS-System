@@ -22,10 +22,17 @@
             <i class="fa-solid fa-user"></i>
           </div>
           <div class="input-box">
-            <input type="password" placeholder="Password" required />
+            <input
+              type="password"
+              id="login-password"
+              placeholder="Password"
+              required
+            />
             <i class="fa-solid fa-lock"></i>
           </div>
-          <div class="forgot-link">
+          <div class="check-box">
+            <input type="checkbox" id="show-login-password" />
+            <label for="show-login-password">Show Password</label>
             <a href="#">Forgot Password?</a>
           </div>
           <button type="submit" class="btn">Login</button>
@@ -38,10 +45,11 @@
           </div>
         </form>
       </div>
-      <!-- login register -->
+
+      <!-- register form -->
       <div class="form-box register">
         <form action="#">
-          <h1>Registeration</h1>
+          <h1>Registration</h1>
           <div class="input-box">
             <input type="text" placeholder="Username" required />
             <i class="fa-solid fa-user"></i>
@@ -51,8 +59,17 @@
             <i class="fa-solid fa-envelope"></i>
           </div>
           <div class="input-box">
-            <input type="password" placeholder="Password" required />
+            <input
+              type="password"
+              id="register-password"
+              placeholder="Password"
+              required
+            />
             <i class="fa-solid fa-lock"></i>
+          </div>
+          <div class="check-box">
+            <input type="checkbox" id="show-register-password" />
+            <label for="show-register-password">Show Password</label>
           </div>
           <button type="submit" class="btn">Register</button>
           <p>Or register with social platforms</p>
@@ -64,6 +81,7 @@
           </div>
         </form>
       </div>
+
       <!-- toggle box -->
       <div class="toggle-box">
         <div class="toggle-panel toggle-left">
@@ -78,6 +96,14 @@
         </div>
       </div>
     </div>
-    <script src="/assets/js/loging.js"></script>
+
+    <!-- dashboard section -->
+    <div class="dashboard" id="dashboard" style="display: none">
+      <h1>Welcome to Fresh Market Dashboard!</h1>
+      <p>You have successfully logged in.</p>
+      <button id="logout-btn" class="btn">Logout</button>
+    </div>
+
+    <script type="module" src="/assets/js/loging.js"></script>
   </body>
 </html>
