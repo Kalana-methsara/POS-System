@@ -167,20 +167,7 @@ function loadDashboard() {
     `;
 }
 
-// function loadPOS() {
-//     pageTitle.textContent = "POS System";
-//     breadcrumbCurrent.textContent = "POS System";
-    
-//     pageContent.innerHTML = `
-//         <div style="background: #fff; padding: 40px; border-radius: 12px; text-align: center; color: #a1a5b7;">
-//             <i class="fas fa-cash-register" style="font-size: 64px; margin-bottom: 20px;"></i>
-//             <h3>POS System Interface</h3>
-//             <p>Point of Sale system would be implemented here with product grid, cart, and payment processing.</p>
-//         </div>
-//     `;
-// }
 
-// Update the loadPOS function in your JavaScript file
 function loadPOS() {
     pageTitle.textContent = "POS System";
     breadcrumbCurrent.textContent = "POS System";
@@ -234,6 +221,23 @@ function loadPOS() {
                 </div>
                 
                 <div class="pos-right">
+                <div class="customer-section">
+                        <div class="customer-header">
+                            <h3>Customer</h3>
+                            <button class="btn-outline btn-sm" id="addCustomerBtn">
+                                <i class="fas fa-plus"></i> New
+                            </button>
+                        </div>
+                        <div class="customer-selector">
+                            <select id="customerSelect">
+                                <option value="0">Walk-in Customer</option>
+                                ${customer_array.map(customer => `
+                                    <option value="${customer.id}">${customer.name} (${customer.phone})</option>
+                                `).join('')}
+                            </select>
+                        </div>
+                    </div>
+                    
                     <div class="cart-container">
                         <div class="cart-header">
                             <h3>Current Order</h3>
