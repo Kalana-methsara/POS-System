@@ -167,18 +167,347 @@ function loadDashboard() {
     `;
 }
 
+// function loadPOS() {
+//     pageTitle.textContent = "POS System";
+//     breadcrumbCurrent.textContent = "POS System";
+    
+//     pageContent.innerHTML = `
+//         <div style="background: #fff; padding: 40px; border-radius: 12px; text-align: center; color: #a1a5b7;">
+//             <i class="fas fa-cash-register" style="font-size: 64px; margin-bottom: 20px;"></i>
+//             <h3>POS System Interface</h3>
+//             <p>Point of Sale system would be implemented here with product grid, cart, and payment processing.</p>
+//         </div>
+//     `;
+// }
+
+// Update the loadPOS function in your JavaScript file
 function loadPOS() {
     pageTitle.textContent = "POS System";
     breadcrumbCurrent.textContent = "POS System";
     
     pageContent.innerHTML = `
-        <div style="background: #fff; padding: 40px; border-radius: 12px; text-align: center; color: #a1a5b7;">
-            <i class="fas fa-cash-register" style="font-size: 64px; margin-bottom: 20px;"></i>
-            <h3>POS System Interface</h3>
-            <p>Point of Sale system would be implemented here with product grid, cart, and payment processing.</p>
+        <div class="pos-system">
+            <div class="pos-container">
+                <div class="pos-left">
+                    <div class="pos-header">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" placeholder="Search products..." id="productSearch">
+                        </div>
+                        <div class="category-filter">
+                            <select id="categoryFilter">
+                                <option value="">All Categories</option>
+                                <option value="Fruits">Fruits</option>
+                                <option value="Dairy">Dairy</option>
+                                <option value="Bakery">Bakery</option>
+                                <option value="Meat">Meat</option>
+                                <option value="Grains">Grains</option>
+                                <option value="Pantry">Pantry</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="products-grid">
+                        ${item_array.length > 0 ? item_array.map(item => `
+                            <div class="product-card" data-id="${item.id}" data-category="${item.category}">
+                                <div class="product-image">
+                                    <i class="fas fa-box"></i>
+                                </div>
+                                <div class="product-info">
+                                    <h4 class="product-name">${item.name}</h4>
+                                    <p class="product-category">${item.category}</p>
+                                    <div class="product-price">Rs. ${item.price}</div>
+                                </div>
+                                <div class="product-actions">
+                                    <button class="btn-primary add-to-cart" data-id="${item.id}">
+                                        <i class="fas fa-plus"></i> Add
+                                    </button>
+                                </div>
+                            </div>
+                        `).join('') : `
+                            <div class="no-products">
+                                <i class="fas fa-box-open"></i>
+                                <p>No products available</p>
+                            </div>
+                        `}
+                    </div>
+                </div>
+                
+                <div class="pos-right">
+                    <div class="cart-container">
+                        <div class="cart-header">
+                            <h3>Current Order</h3>
+                            <span class="cart-count">0 items</span>
+                        </div>
+                        
+                        <div class="cart-items" id="cartItems">
+                            <div class="empty-cart">
+                                <i class="fas fa-shopping-cart"></i>
+                                <p>Your cart is empty</p>
+                            </div>
+                        </div>
+                        
+                        <div class="cart-summary">
+                            <div class="summary-row">
+                                <span>Subtotal:</span>
+                                <span id="subtotal">Rs. 0.00</span>
+                            </div>
+                            <div class="summary-row">
+                                <span>Tax (10%):</span>
+                                <span id="tax">Rs. 0.00</span>
+                            </div>
+                            <div class="summary-row total">
+                                <span>Total:</span>
+                                <span id="total">Rs. 0.00</span>
+                            </div>
+                        </div>
+                        
+                        <div class="payment-actions">
+                            <button class="btn-outline" id="clearCart">
+                                <i class="fas fa-trash"></i> Clear
+                            </button>
+                            <button class="btn-primary" id="checkoutBtn">
+                                <i class="fas fa-credit-card"></i> Checkout
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     `;
+    
+    // Initialize POS functionality
+    setupPOS();
 }
+
+// Add POS functionality
+function setupPOS() {
+    let cart = [];
+    const productSearch = document.getElementById('productSearch');
+    const categoryFilter = document.getElementById('categoryFilter');
+    const cartItems = document.getElementById('cartItems');
+    const cartCount = document.querySelector('.cart-count');
+    const subtotalEl = document.getElementById('subtotal');
+    const taxEl = document.getElementById('tax');
+    const totalEl = document.getElementById('total');
+    const clearCartBtn = document.getElementById('clearCart');
+    const checkoutBtn = document.getElementById('checkoutBtn');
+    
+    // Add to cart functionality
+    document.querySelectorAll('.add-to-cart').forEach(button => {
+        button.addEventListener('click', function() {
+            const productId = parseInt(this.getAttribute('data-id'));
+            const product = item_array.find(item => item.id === productId);
+            
+            if (product) {
+                addToCart(product);
+            }
+        });
+    });
+    
+    // Search functionality
+    productSearch.addEventListener('input', function() {
+        filterProducts();
+    });
+    
+    // Category filter functionality
+    categoryFilter.addEventListener('change', function() {
+        filterProducts();
+    });
+    
+    // Clear cart
+    clearCartBtn.addEventListener('click', function() {
+        cart = [];
+        updateCartDisplay();
+    });
+    
+    // Checkout
+    checkoutBtn.addEventListener('click', function() {
+        if (cart.length === 0) {
+            alert('Please add items to cart before checkout');
+            return;
+        }
+        
+        processCheckout();
+    });
+    
+    // Add to cart function
+    function addToCart(product) {
+        const existingItem = cart.find(item => item.id === product.id);
+        
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            cart.push({
+                id: product.id,
+                name: product.name,
+                price: product.price,
+                quantity: 1
+            });
+        }
+        
+        updateCartDisplay();
+    }
+    
+    // Remove from cart
+    function removeFromCart(productId) {
+        const itemIndex = cart.findIndex(item => item.id === productId);
+        
+        if (itemIndex !== -1) {
+            cart.splice(itemIndex, 1);
+            updateCartDisplay();
+        }
+    }
+    
+    // Update quantity
+    function updateQuantity(productId, newQuantity) {
+        const item = cart.find(item => item.id === productId);
+        
+        if (item) {
+            if (newQuantity <= 0) {
+                removeFromCart(productId);
+            } else {
+                item.quantity = newQuantity;
+                updateCartDisplay();
+            }
+        }
+    }
+    
+    // Update cart display
+    function updateCartDisplay() {
+        // Update cart count
+        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+        cartCount.textContent = `${totalItems} ${totalItems === 1 ? 'item' : 'items'}`;
+        
+        // Update cart items
+        if (cart.length === 0) {
+            cartItems.innerHTML = `
+                <div class="empty-cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <p>Your cart is empty</p>
+                </div>
+            `;
+        } else {
+            cartItems.innerHTML = cart.map(item => `
+                <div class="cart-item">
+                    <div class="item-info">
+                        <h4 class="item-name">${item.name}</h4>
+                        <div class="item-price">Rs. ${item.price}</div>
+                    </div>
+                    <div class="item-controls">
+                        <button class="quantity-btn minus" data-id="${item.id}">-</button>
+                        <span class="quantity">${item.quantity}</span>
+                        <button class="quantity-btn plus" data-id="${item.id}">+</button>
+                        <button class="remove-btn" data-id="${item.id}">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+            
+            // Add event listeners to quantity buttons
+            document.querySelectorAll('.quantity-btn.minus').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    const item = cart.find(item => item.id === id);
+                    if (item) {
+                        updateQuantity(id, item.quantity - 1);
+                    }
+                });
+            });
+            
+            document.querySelectorAll('.quantity-btn.plus').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    const item = cart.find(item => item.id === id);
+                    if (item) {
+                        updateQuantity(id, item.quantity + 1);
+                    }
+                });
+            });
+            
+            document.querySelectorAll('.remove-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    removeFromCart(id);
+                });
+            });
+        }
+        
+        // Update totals
+        const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        const tax = subtotal * 0.1; // 10% tax
+        const total = subtotal + tax;
+        
+        subtotalEl.textContent = `Rs. ${subtotal.toFixed(2)}`;
+        taxEl.textContent = `Rs. ${tax.toFixed(2)}`;
+        totalEl.textContent = `Rs. ${total.toFixed(2)}`;
+    }
+    
+    // Filter products
+    function filterProducts() {
+        const searchTerm = productSearch.value.toLowerCase();
+        const selectedCategory = categoryFilter.value;
+        
+        document.querySelectorAll('.product-card').forEach(card => {
+            const productName = card.querySelector('.product-name').textContent.toLowerCase();
+            const productCategory = card.getAttribute('data-category');
+            
+            const matchesSearch = productName.includes(searchTerm);
+            const matchesCategory = !selectedCategory || productCategory === selectedCategory;
+            
+            if (matchesSearch && matchesCategory) {
+                card.style.display = 'flex';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+    
+    // Process checkout
+    function processCheckout() {
+        const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        const tax = subtotal * 0.1;
+        const total = subtotal + tax;
+        
+        // Create order
+        const newOrder = {
+            id: order_array.length + 1,
+            customerId: 1, // Default customer for now
+            customerName: "Walk-in Customer",
+            items: cart.map(item => ({
+                itemId: item.id,
+                name: item.name,
+                quantity: item.quantity,
+                price: item.price
+            })),
+            totalAmount: total,
+            orderDate: new Date().toISOString().split('T')[0],
+            status: "Completed"
+        };
+        
+        // Add to order array
+        order_array.push(newOrder);
+        
+        // Update stock
+        cart.forEach(cartItem => {
+            const product = item_array.find(item => item.id === cartItem.id);
+            if (product) {
+                product.stock -= cartItem.quantity;
+                if (product.stock < 0) product.stock = 0;
+            }
+        });
+        
+        // Show success message
+        alert(`Order #${newOrder.id} placed successfully!\nTotal: Rs. ${total.toFixed(2)}`);
+        
+        // Clear cart
+        cart = [];
+        updateCartDisplay();
+    }
+}
+
+// ---------
 
 function loadProducts() {
     pageTitle.textContent = "Products";
