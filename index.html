@@ -97,30 +97,134 @@
       </div>
     </div>
 
-    <!-- dashboard section -->
-    <div class="dashboard" id="dashboard" style="display: none">
-      <nav class="sidebar">
-        <header>
-          <div class="image-logo">
-            <span class="image">
-              <img src="/assets/images/logo.png" alt="logo" />
-            </span>
+    <!-- POS Dashboard -->
+    <div class="pos-dashboard" id="dashboard" style="display: none">
+      <!-- Header -->
+      <header class="pos-header">
+        <div class="header-left">
+          <button class="sidebar-toggle" id="sidebarToggle">
+            <i class="fas fa-bars"></i>
+          </button>
+          <div class="header-logo">
+            <img src="/assets/images/logo.png" alt="Fresh Market" />
+            <span>Fresh Market POS</span>
           </div>
-        </header>
-        <ul class="menu">
-          <li><a href="dashboard">Dashboard</a></li>
-          <li><a href="products">Products</a></li>
-          <li><a href="orders">Orders</a></li>
-          <li><a href="customers">Customers</a></li>
-          <li><a href="settings">Settings</a></li>
-          <button id="logout-btn" class="btn">Logout</button>
-        </ul>
-      </nav>
+        </div>
 
-      <div class="dashboard-main">
-        <!--
-        <h1>Welcome to Fresh Market Dashboard!</h1>
-        <p>This is your main content area.</p> -->
+        <div class="header-center">
+          <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input
+              type="text"
+              placeholder="Search products, orders, customers..."
+            />
+          </div>
+        </div>
+
+        <div class="header-right">
+          <div class="header-actions">
+            <button class="header-btn">
+              <i class="fas fa-bell"></i>
+              <span class="notification-badge">3</span>
+            </button>
+            <button class="header-btn">
+              <i class="fas fa-cog"></i>
+            </button>
+            <div class="user-menu">
+              <div class="user-avatar">
+                <img src="/assets/images/user.png" alt="User" />
+              </div>
+              <span class="user-name">Admin</span>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="pos-container">
+        <!-- Sidebar -->
+        <nav class="pos-sidebar" id="posSidebar">
+          <ul class="sidebar-menu">
+            <li class="menu-item active">
+              <a href="#" data-page="dashboard" class="nav-link">
+                <i class="fas fa-home"></i>
+                <span>Dashboard</span>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="#" data-page="pos" class="nav-link">
+                <i class="fas fa-cash-register"></i>
+                <span>POS System</span>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="#" data-page="products" class="nav-link">
+                <i class="fas fa-box"></i>
+                <span>Products</span>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="#" data-page="categories" class="nav-link">
+                <i class="fas fa-tags"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="#" data-page="orders" class="nav-link">
+                <i class="fas fa-shopping-cart"></i>
+                <span>Orders</span>
+                <span class="menu-badge">12</span>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="#" data-page="customers" class="nav-link">
+                <i class="fas fa-users"></i>
+                <span>Customers</span>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="#" data-page="inventory" class="nav-link">
+                <i class="fas fa-warehouse"></i>
+                <span>Inventory</span>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="#" data-page="reports" class="nav-link">
+                <i class="fas fa-chart-bar"></i>
+                <span>Reports</span>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="#" data-page="settings" class="nav-link">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+              </a>
+            </li>
+          </ul>
+
+          <div class="sidebar-footer">
+            <button id="logout-btn" class="logout-btn">
+              <i class="fas fa-sign-out-alt"></i>
+              <span>Logout</span>
+            </button>
+          </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="pos-main">
+          <div class="page-header">
+            <h1 id="page-title">Dashboard</h1>
+            <div class="breadcrumb">
+              <span>Home</span>
+              <i class="fas fa-chevron-right"></i>
+              <span id="breadcrumb-current">Dashboard</span>
+            </div>
+          </div>
+
+          <div class="page-content" id="page-content">
+            <!-- Dynamic content will be loaded here -->
+          </div>
+        </main>
       </div>
     </div>
 
