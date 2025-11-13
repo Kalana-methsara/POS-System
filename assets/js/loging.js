@@ -189,7 +189,6 @@ function loadPOS() {
                         </div>
                     </div>
                     
-                  // In the products-grid section of loadPOS():
 <div class="products-grid">
   ${item_array.length > 0 ? item_array.map(item => `
     <div class="product-card" data-id="${item.id}" data-category="${item.category}">
