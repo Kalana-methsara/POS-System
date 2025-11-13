@@ -189,31 +189,38 @@ function loadPOS() {
                         </div>
                     </div>
                     
-                    <div class="products-grid">
-                        ${item_array.length > 0 ? item_array.map(item => `
-                            <div class="product-card" data-id="${item.id}" data-category="${item.category}">
-                                <div class="product-image">
-                                    <i class="fas fa-box"></i>
-                                </div>
-                                <div class="product-info">
-                                    <h4 class="product-name">${item.name}</h4>
-                                    <p class="product-category">${item.category}</p>
-                                    <div class="product-price">Rs. ${item.price.toFixed(2)}</div>
-                                    <div class="product-stock">Stock: ${item.stock}</div>
-                                </div>
-                                <div class="product-actions">
-                                    <button class="btn-primary add-to-cart" data-id="${item.id}" ${item.stock <= 0 ? 'disabled' : ''}>
-                                        <i class="fas fa-plus"></i> ${item.stock <= 0 ? 'Out of Stock' : 'Add'}
-                                    </button>
-                                </div>
-                            </div>
-                        `).join('') : `
-                            <div class="no-products">
-                                <i class="fas fa-box-open"></i>
-                                <p>No products available</p>
-                            </div>
-                        `}
-                    </div>
+                  // In the products-grid section of loadPOS():
+<div class="products-grid">
+  ${item_array.length > 0 ? item_array.map(item => `
+    <div class="product-card" data-id="${item.id}" data-category="${item.category}">
+      <div class="product-image">
+        ${item.image ? 
+          `<img src="${item.image}" alt="${item.name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">` : 
+          ''
+        }
+        <div class="placeholder-icon" style="${item.image ? 'display: none;' : ''}">
+          <i class="fas fa-box"></i>
+        </div>
+      </div>
+      <div class="product-info">
+        <h4 class="product-name">${item.name}</h4>
+        <p class="product-category">${item.category}</p>
+        <div class="product-price">Rs. ${item.price.toFixed(2)}</div>
+        <div class="product-stock">Stock: ${item.stock}</div>
+      </div>
+      <div class="product-actions">
+        <button class="btn-primary add-to-cart" data-id="${item.id}" ${item.stock <= 0 ? 'disabled' : ''}>
+          <i class="fas fa-plus"></i> ${item.stock <= 0 ? 'Out of Stock' : 'Add'}
+        </button>
+      </div>
+    </div>
+  `).join('') : `
+    <div class="no-products">
+      <i class="fas fa-box-open"></i>
+      <p>No products available</p>
+    </div>
+  `}
+</div>
                 </div>
                 
                 <div class="pos-right">
