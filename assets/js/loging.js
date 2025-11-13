@@ -1023,7 +1023,7 @@ function loadOrders() {
                                 <td>${order.items.reduce((sum, item) => sum + item.quantity, 0)} items</td>
                                 <td>Rs. ${order.totalAmount.toFixed(2)}</td>
                                 <td><span class="status-badge ${getStatusClass(order.status)}">${order.status}</span></td>
-                                <td>
+                                <td style="display: flex; gap: 8px;">
                                     <button class="btn-outline view-order-btn" data-order-id="${order.id}" style="padding: 6px 12px;">
                                         <i class="fas fa-eye"></i>
                                     </button>

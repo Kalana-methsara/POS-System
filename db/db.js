@@ -51,7 +51,7 @@ export const item_array = [
     price: 120,
     stock: 120,
     unit: "kg",
-    image: "/assets/images/apple.png"
+    image: "/assets/images/apple.jpeg"
   },
   {
     id: 2,
@@ -60,7 +60,7 @@ export const item_array = [
     price: 80,
     stock: 90,
     unit: "kg",
-    image: "/assets/images/banana.png"
+    image: "/assets/images/banana.jpeg"
   },
   {
     id: 3,
@@ -69,7 +69,7 @@ export const item_array = [
     price: 800,
     stock: 60,
     unit: "bottle",
-    image: "/assets/images/milk.png"
+    image: "/assets/images/milk.jpeg"
   },
   {
     id: 4,
@@ -78,7 +78,7 @@ export const item_array = [
     price: 90,
     stock: 40,
     unit: "pack",
-    image: "/assets/images/bread.png"
+    image: "/assets/images/bread.jpeg"
   },
   {
     id: 5,
@@ -87,7 +87,7 @@ export const item_array = [
     price: 35,
     stock: 75,
     unit: "carton",
-    image: "/assets/images/eggs.png"
+    image: "/assets/images/eggs.jpg"
   },
   {
     id: 6,
@@ -96,7 +96,7 @@ export const item_array = [
     price: 890,
     stock: 35,
     unit: "kg",
-    image: "/assets/images/chicken.png"
+    image: "/assets/images/chicken.jpeg"
   },
   {
     id: 7,
@@ -105,7 +105,7 @@ export const item_array = [
     price: 650,
     stock: 50,
     unit: "bag",
-    image: "/assets/images/rice.png"
+    image: "/assets/images/rice.jpeg"
   },
   {
     id: 8,
@@ -114,7 +114,7 @@ export const item_array = [
     price: 420,
     stock: 45,
     unit: "bottle",
-    image: "/assets/images/oil.png"
+    image: "/assets/images/oil.jpeg"
   },
   {
     id: 9,
@@ -123,7 +123,7 @@ export const item_array = [
     price: 210,
     stock: 80,
     unit: "pack",
-    image: "/assets/images/sugar.png"
+    image: "/assets/images/sugar.jpeg"
   },
   {
     id: 10,
@@ -132,7 +132,7 @@ export const item_array = [
     price: 150,
     stock: 100,
     unit: "pack",
-    image: "/assets/images/salt.png"
+    image: "/assets/images/salt.jpeg"
   },
 ];
 
